@@ -23,8 +23,7 @@ public class ProductDatabase {
 
     public Product get(long id) {
 
-        Product product = productMap.get(id);
-        return product;
+        return productMap.get(id);
     }
 
     public int getCount() {
@@ -45,19 +44,12 @@ public class ProductDatabase {
         return result;
     }
 
-    // TODO: method remove, given an id, removes that product from the database
 
-
-    public Map<Long, Product> removeProduct (long givenId){
-
-        Map<Long, Product> newMap = new HashMap<>();
-
-        newMap.remove(productMap.get(givenId));
-
-
-        return newMap;
-
+    public void remove (long id){
+        this.productMap.remove(id);
     }
+
+
 
     public List<Product> getByBrand(String brand) {
 

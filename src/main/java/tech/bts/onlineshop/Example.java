@@ -1,5 +1,6 @@
 package tech.bts.onlineshop;
 
+import com.sun.xml.internal.bind.v2.TODO;
 import tech.bts.onlineshop.business.PurchaseService;
 import tech.bts.onlineshop.data.ProductDatabase;
 import tech.bts.onlineshop.model.CartItem;
@@ -63,10 +64,12 @@ public class Example {
             System.out.println(p.getName() + " is in the price range of " + minPrice + "-" + maxPrice + "€");
         }
 
-        HashMap<Long, Product> removeProductId2 = (HashMap<Long, Product>) productDatabase.removeProduct(2L);
 
-        System.out.println(removeProductId2);
+        productDatabase.remove(2);
 
+        // TODO using size
+
+        System.out.println(productDatabase.getCount());
     }
 
 }
