@@ -6,10 +6,12 @@ import tech.bts.onlineshop.model.CartItem;
 import tech.bts.onlineshop.model.Product;
 import tech.bts.onlineshop.model.ShoppingCart;
 
-import java.util.Arrays;
-import java.util.List;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class Example {
+
+
 
     public static void main(String[] args) {
 
@@ -22,7 +24,7 @@ public class Example {
         productDatabase.add(p2);
         productDatabase.add(p3);
 
-        Product product = productDatabase.get(3);
+        Product product = productDatabase.get(1);
         System.out.println("The name of the product is: " + product.getName());
 
         int count = productDatabase.getCount();
@@ -50,5 +52,21 @@ public class Example {
 
         double total = purchaseService.calculateTotalAmount(cart);
         System.out.println("Total amount of cart: " + total);
+
+
+        double minPrice = 1000;
+        double maxPrice = 1600;
+
+        List<Product> productsByFirstRange = productDatabase.productsByPriceRange(minPrice, maxPrice);
+
+        for (Product p : productsByFirstRange) {
+            System.out.println(p.getName() + " is in the price range of " + minPrice + "-" + maxPrice + "€");
+        }
+
+        HashMap<Long, Product> removeProductId2 = (HashMap<Long, Product>) productDatabase.removeProduct(2L);
+
+        System.out.println(removeProductId2);
+
     }
+
 }
