@@ -9,6 +9,9 @@ import tech.bts.onlineshop.model.ShoppingCart;
 
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.concurrent.Callable;
+
+import static java.lang.System.*;
 
 public class Example {
 
@@ -25,22 +28,56 @@ public class Example {
         productDatabase.add(p2);
         productDatabase.add(p3);
 
+
+        System.out.println("p1 is available " + p1.isAvailable());
+
         Product product = productDatabase.get(1);
-        System.out.println("The name of the product is: " + product.getName());
+        out.println("The name of the product is: " + product.getName());
 
         int count = productDatabase.getCount();
-        System.out.println("I have " + count + " products in the database");
+        out.println("I have " + count + " products in the database");
 
         int countApple = productDatabase.getCountByBrand("Apple");
-        System.out.println("I have " + countApple + " Apple products");
+        out.println("I have " + countApple + " Apple products");
 
 
         List<Product> productsByApple = productDatabase.getByBrand("Apple");
-        System.out.println("Products by Apple: " + productsByApple);
+        out.println("Products by Apple: " + productsByApple);
         for (Product p : productsByApple) {
-            System.out.println(p.getName() + ", " + p.getBrand() + ", " + p.getPrice());
+            out.println(p.getName() + ", " + p.getBrand() + ", " + p.getPrice());
         }
 
+        productDatabase.remove(2);
+        productDatabase.remove(1);
+
+        System.out.println("All products after removing two: ");
+        Collection<Product> allProducts = productDatabase.getAll();
+
+        for (Product p : allProducts) {
+            System.out.println(p);
+        }
+
+        Product p4 = new Product("Lightning cable", "Apple", 10);
+        productDatabase.add(p4);
+
+        System.out.println("Number of product now: " + productDatabase.getCount());
+
+
+        long requestedId = 2;
+        Product removedProduct = productDatabase.get(requestedId);
+
+        /**
+         * if the requested product exists, write "the name of the product is "
+         * if it doesn't, write "the product with ID  doesn't exist"
+         */
+
+        if (removedProduct != null){
+            System.out.println("The name of the product is " + removedProduct);
+        } else {
+            System.out.println("The product with ID " + requestedId + " doesn't exist");
+        }
+
+        System.out.println("This product was removed: " + removedProduct);
 
         List<CartItem> items = Arrays.asList(
                 new CartItem(p1, 2),
@@ -52,24 +89,22 @@ public class Example {
         PurchaseService purchaseService = new PurchaseService();
 
         double total = purchaseService.calculateTotalAmount(cart);
-        System.out.println("Total amount of cart: " + total);
+        out.println("Total amount of cart: " + total);
 
 
         double minPrice = 1000;
         double maxPrice = 1600;
 
-        List<Product> productsByFirstRange = productDatabase.productsByPriceRange(minPrice, maxPrice);
+        List<Product> productsByPrice = productDatabase.productsByPriceRange(minPrice, maxPrice);
 
-        for (Product p : productsByFirstRange) {
-            System.out.println(p.getName() + " is in the price range of " + minPrice + "-" + maxPrice + "€");
+
+        for (Product p : productsByPrice) {
+            out.println(p.getName() + " is in the price range of " + minPrice + "-" + maxPrice + "€");
         }
 
+        System.out.println("Products by price, all of them: " + productsByPrice);
 
-        productDatabase.remove(2);
 
-        // TODO using size
-
-        System.out.println(productDatabase.getCount());
     }
 
 }

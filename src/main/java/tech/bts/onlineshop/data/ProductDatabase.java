@@ -32,6 +32,9 @@ public class ProductDatabase {
     }
 
 
+    /**
+     * Given 2 prices (min, max) returns a list of products that are in that price range (included)
+     */
     public List<Product> productsByPriceRange (double minPrice, double maxPrice){
 
         List<Product> result = new ArrayList<>();
@@ -44,9 +47,18 @@ public class ProductDatabase {
         return result;
     }
 
+    /**
+     * Given id, remove
+     */
+
 
     public void remove (long id){
-        this.productMap.remove(id);
+        productMap.remove(id);
+    }
+
+    public Collection<Product> getAll (){
+
+        return productMap.values();
     }
 
 
@@ -70,4 +82,5 @@ public class ProductDatabase {
         List<Product> products = getByBrand(brand);
         return products.size();
     }
+
 }
