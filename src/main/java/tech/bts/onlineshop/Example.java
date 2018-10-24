@@ -1,15 +1,12 @@
 package tech.bts.onlineshop;
 
-import com.sun.xml.internal.bind.v2.TODO;
-import tech.bts.onlineshop.business.PurchaseService;
+import tech.bts.onlineshop.business.ProductService;
 import tech.bts.onlineshop.data.ProductDatabase;
 import tech.bts.onlineshop.model.CartItem;
 import tech.bts.onlineshop.model.Product;
 import tech.bts.onlineshop.model.ShoppingCart;
 
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.concurrent.Callable;
 
 import static java.lang.System.*;
 
@@ -86,10 +83,7 @@ public class Example {
 
         ShoppingCart cart = new ShoppingCart(items);
 
-        PurchaseService purchaseService = new PurchaseService();
 
-        double total = purchaseService.calculateTotalAmount(cart);
-        out.println("Total amount of cart: " + total);
 
 
         double minPrice = 1000;
