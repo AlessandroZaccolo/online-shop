@@ -15,12 +15,14 @@ public class ProductService {
 
 
 
-
-    public void createProduct (Product product){
-        this.productDatabase.add(product);
-
+    // Adds a product and returns the id for that product.
+    public long createProduct (Product product){
+        long productId = this.productDatabase.add(product);
+        return productId;
 
     }
+
+
     public void addProductStock (long productId, int quantity){
 
 
@@ -31,6 +33,11 @@ public class ProductService {
         product.setQuantity(total);
     }
 
+
+    public Product getProductById (long productId){
+
+        return productDatabase.get(productId);
+    }
 
 
 
