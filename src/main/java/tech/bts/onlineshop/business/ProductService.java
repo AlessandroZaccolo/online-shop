@@ -59,5 +59,14 @@ public class ProductService {
     }
 
 
+    // Reduce the quantities of the products by the quantities in the cart
+    public void purchase(ShoppingCart cart) {
 
+        for (CartItem item : cart.getItems()) {
+
+            Product product = productDatabase.get(item.getproductId());
+            int remainingQuantity = product.getQuantity() - item.getQuantity();
+            product.setQuantity(remainingQuantity);
+        }
+    }
 }

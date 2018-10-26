@@ -13,6 +13,7 @@ import static java.lang.System.*;
 public class Example {
 
 
+    /**
 
     public static void main(String[] args) {
 
@@ -68,6 +69,8 @@ public class Example {
          * if it doesn't, write "the product with ID  doesn't exist"
          */
 
+
+        /**
         if (removedProduct != null){
             System.out.println("The name of the product is " + removedProduct);
         } else {
@@ -76,10 +79,6 @@ public class Example {
 
         System.out.println("This product was removed: " + removedProduct);
 
-        List<CartItem> items = Arrays.asList(
-                new CartItem(p1, 2),
-                new CartItem(p2, 3),
-                new CartItem(p3, 1));
 
         ShoppingCart cart = new ShoppingCart(items);
 
@@ -101,4 +100,6 @@ public class Example {
 
     }
 
+    */
 }
+
