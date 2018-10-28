@@ -33,6 +33,10 @@ public class ProductService {
         product.setQuantity(total);
     }
 
+    public int getCount(){
+        return productDatabase.getCount();
+    }
+
 
     public Product getProductById (long productId){
 

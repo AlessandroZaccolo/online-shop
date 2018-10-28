@@ -6,14 +6,11 @@ import tech.bts.onlineshop.model.CartItem;
 import tech.bts.onlineshop.model.Product;
 import tech.bts.onlineshop.model.ShoppingCart;
 
-import java.util.*;
-
-import static java.lang.System.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 public class Example {
-
-
-    /**
 
     public static void main(String[] args) {
 
@@ -26,80 +23,55 @@ public class Example {
         productDatabase.add(p2);
         productDatabase.add(p3);
 
+        System.out.println("p1 is available? " + p1.isAvailable());
 
-        System.out.println("p1 is available " + p1.isAvailable());
-
-        Product product = productDatabase.get(1);
-        out.println("The name of the product is: " + product.getName());
+        Product product = productDatabase.get(3);
+        System.out.println("The name of the product is: " + product.getName());
 
         int count = productDatabase.getCount();
-        out.println("I have " + count + " products in the database");
+        System.out.println("I have " + count + " products in the database");
 
         int countApple = productDatabase.getCountByBrand("Apple");
-        out.println("I have " + countApple + " Apple products");
+        System.out.println("I have " + countApple + " Apple products");
 
 
         List<Product> productsByApple = productDatabase.getByBrand("Apple");
-        out.println("Products by Apple: " + productsByApple);
+        System.out.println("Products by Apple: " + productsByApple);
         for (Product p : productsByApple) {
-            out.println(p.getName() + ", " + p.getBrand() + ", " + p.getPrice());
+            System.out.println(p.getName() + ", " + p.getBrand() + ", " + p.getPrice());
         }
 
+        List<Product> productsByPrice = productDatabase.productsByPriceRange(500, 1000);
+        System.out.println("Products by price:");
+        for (Product p : productsByPrice) {
+            System.out.println(p.getName() + ", " + p.getBrand() + ", " + p.getPrice());
+        }
+        System.out.println("Products by price, all of them: " + productsByPrice);
+
         productDatabase.remove(2);
-        productDatabase.remove(1);
+        productDatabase.remove(3);
 
-        System.out.println("All products after removing two: ");
+        System.out.println("All products after removing:");
         Collection<Product> allProducts = productDatabase.getAll();
-
         for (Product p : allProducts) {
             System.out.println(p);
         }
 
-        Product p4 = new Product("Lightning cable", "Apple", 10);
+        Product p4 = new Product("lightning cable", "Apple", 10);
         productDatabase.add(p4);
 
-        System.out.println("Number of product now: " + productDatabase.getCount());
+        System.out.println("Number of products now: " + productDatabase.getCount());
 
+        long requestedId = 1;
+        Product requestedProduct = productDatabase.get(requestedId);
 
-        long requestedId = 2;
-        Product removedProduct = productDatabase.get(requestedId);
-
-        /**
-         * if the requested product exists, write "the name of the product is "
-         * if it doesn't, write "the product with ID  doesn't exist"
-         */
-
-
-        /**
-        if (removedProduct != null){
-            System.out.println("The name of the product is " + removedProduct);
+        // if the requested product exists, write "the name of the product is XXXXX"
+        // if it doesn't, write "the product with ID XXXXX doesn't exist"
+        if (requestedProduct != null) {
+            System.out.println("the name of the product is " + requestedProduct.getName());
         } else {
-            System.out.println("The product with ID " + requestedId + " doesn't exist");
+            System.out.println("the product with ID " + requestedId + " doesn't exist");
         }
-
-        System.out.println("This product was removed: " + removedProduct);
-
-
-        ShoppingCart cart = new ShoppingCart(items);
-
-
-
-
-        double minPrice = 1000;
-        double maxPrice = 1600;
-
-        List<Product> productsByPrice = productDatabase.productsByPriceRange(minPrice, maxPrice);
-
-
-        for (Product p : productsByPrice) {
-            out.println(p.getName() + " is in the price range of " + minPrice + "-" + maxPrice + "€");
-        }
-
-        System.out.println("Products by price, all of them: " + productsByPrice);
-
 
     }
-
-    */
 }
-
