@@ -2,10 +2,18 @@ package tech.bts.onlineshop.model;
 
 public class Discount {
 
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     private String id;
     private String name;
     private double amount;
-
     private boolean percentage;
 
     public Discount (String name, double amount, boolean percentage){

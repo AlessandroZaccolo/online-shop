@@ -5,37 +5,41 @@ import tech.bts.onlineshop.model.Discount;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DiscountService {
+public class DiscountService<discount> {
 
-    private String id;
+
+    private String discountId;
 
     private Map<String, Discount> discountMap;
 
-    public DiscountService() {
+    public DiscountService(){
         this.discountMap = new HashMap<>();
     }
 
 
-    public Map<String, Discount> getDiscountMap() {
-        return discountMap;
-    }
-
     // 3. create a discount
-    public Discount createDiscount(Discount discount){
-        this.discountMap.put(id, discount);
-        return discount;
+    public String createDiscount(Discount discount) {
+        discountMap.put(discount.getId(), discount);
+        return discount.getId();
     }
 
     // 4.create a method calculateFinalAmount that takes a discount id and an amount
     // and returns the final amount after applying the discount.
 
-    public double calculateFinalAmount (String id, double amount){
+    public double calculateFinalAmount(String discountId, double amount) {
 
-        if (id.equals("SUMMERSALES")){
-            amount = amount * (amount /100);
+        Discount discount = discountMap.get(discountId);
+
+        if (discount.getId() != null) {
+            if (discount.isPercentage()) {
+                amount = amount * (discount.getAmount() / 100);
+                return amount;
+            } else {
+                amount = amount - discount.getAmount();
+                return amount;
+            }
+        } else {
+            return amount;
         }
-        return amount;
     }
-
-
 }
