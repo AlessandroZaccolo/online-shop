@@ -8,38 +8,64 @@ import static org.junit.Assert.*;
 
 public class DiscountServiceTest {
 
-    //5- Create a test for this class (DiscountServiceTest) with at least 3 tests.
-    // One test will use a discount with percentage.
-    // Another test will use a discount with absolute amount (not percentage).
-    // And another test will try to use a discount that doesn't exist, no discount to be applied.
 
     @Test
-    public void getDiscountMap() {
-    }
+    public void test_absolute_discount(){
 
-    @Test
-    public void createDiscount() {
-    }
-
-    @Test
-    public void calculateFinalAmount() {
-
+        // 1 - setup the objects you need
         DiscountService discountService = new DiscountService();
-        Discount discount = new Discount("Halloween2018", 50, true);
-        String HalloweenId = discountService.createDiscount(discount);
+        discountService.add(new Discount("WINTER18", "Discount for winter", 40, false));
+        discountService.add(new Discount("SUMMER18", "Discount for summer", 20, false));
 
-        Assert.assertEquals(25, discountService.calculateFinalAmount(HalloweenId, 50), 0.0);
+        // 2 - you call same methods
+        double totalAmount1 = discountService.calculateFinalAmount("WINTER18", 500);
+        double totalAmount2 = discountService.calculateFinalAmount("SUMMER18", 500);
 
-        Discount discount1 = new Discount("Christmas2018", 50, false);
-        String ChristmasId = discountService.createDiscount(discount1);
+        // 3 - you check that the result is the one expected
+        assertEquals(480.0, totalAmount2, 0.0);
+        assertEquals(460.0, totalAmount1, 0.0);
+    }
 
-        Assert.assertEquals(50, discountService.calculateFinalAmount(ChristmasId, 100), 0.0);
+    @Test
+    public void test_percentage_discount(){
 
+        // 1 - setup the objects you need
+        DiscountService discountService = new DiscountService();
+        discountService.add(new Discount("WINTER18", "Discount for winter", 10, true));
+        discountService.add(new Discount("SUMMER18", "Discount for summer", 20, true));
 
+        // 2 - you call same methods
+        double totalAmount1 = discountService.calculateFinalAmount("WINTER18", 500);
+        double totalAmount2 = discountService.calculateFinalAmount("SUMMER18", 500);
 
-        Assert.assertEquals(50, discountService.calculateFinalAmount("SummerId", 50), 0.0);
+        // 3 - you check that the result is the one expected
+        assertEquals(450.0,totalAmount1, 0.0);
+        assertEquals(400.0, totalAmount2, 0.0);
+    }
 
+    @Test
+    public void test_discount_higher_than_amount(){
 
+        // 1 - setup the objects you need
+        DiscountService discountService = new DiscountService();
+        discountService.add(new Discount("WINTER18", "Discount for winter", 50, false));
+
+        // 2 - you call same methods
+        double totalAmount = discountService.calculateFinalAmount("WINTER18", 30);
+        assertEquals(0, totalAmount, 0.0);
+    }
+
+    @Test
+    public void test_non_existing_discount(){
+
+        // 1 - setup the objects you need
+        DiscountService discountService = new DiscountService();
+
+        // 2 - you call same methods
+        double totalAmount = discountService.calculateFinalAmount("WRONG", 500);
+
+        // 3 - you check that the result is the one expected
+        assertEquals(500.0,totalAmount, 0.0);
     }
 
 }

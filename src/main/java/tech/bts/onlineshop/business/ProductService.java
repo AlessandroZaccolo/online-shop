@@ -13,15 +13,17 @@ public class ProductService {
         this.productDatabase = productDatabase;
     }
 
-
-
-    // Adds a product and returns the id for that product.
     public long createProduct (Product product){
-        long productId = this.productDatabase.add(product);
-        return productId;
-
+        return this.productDatabase.add(product);
     }
 
+    // Adds a product with initial stock and returns the id for that product.
+    public long createProductAndAddStock (Product product, int initialStock){
+
+        long productId = this.createProduct(product);
+        this.addProductStock(productId, initialStock);
+        return productId;
+    }
 
     public void addProductStock (long productId, int quantity){
 
@@ -70,7 +72,7 @@ public class ProductService {
 
             Product product = productDatabase.get(item.getproductId());
             int remainingQuantity = product.getQuantity() - item.getQuantity();
-            product.setQuantity(remainingQuantity);
+            product.setQuantity(Math.max(remainingQuantity, 0));
         }
     }
 }
