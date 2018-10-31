@@ -7,6 +7,8 @@ import tech.bts.onlineshop.model.CartItem;
 import tech.bts.onlineshop.model.Product;
 import tech.bts.onlineshop.model.ShoppingCart;
 
+import java.util.List;
+
 public class ProductServiceTest {
 
     @Test
@@ -95,17 +97,18 @@ public class ProductServiceTest {
 
         ProductService productService = new ProductService(new ProductDatabase());
         long penId = productService.createProductAndAddStock(new Product("pen", "Pitol", 3),100);
-
-
         ShoppingCart cart = new ShoppingCart();
         cart.add(new CartItem(penId, 200));
 
         // 2 - calling the method(s) we are testing
-        productService.purchase(cart);
+        ShoppingCart actualCart = productService.purchase(cart);
 
         // 3 - check the expected result
-
         Assert.assertEquals(0,productService.getProductById(penId).getQuantity());
+        List<CartItem> items = actualCart.getItems();
+        Assert.assertEquals(1,items.size());
+        Assert.assertEquals(penId,items.get(0).getproductId());
+        Assert.assertEquals(100,items.get(0).getQuantity());
 
     }
 }
